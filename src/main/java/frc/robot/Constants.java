@@ -36,6 +36,11 @@ public final class Constants {
     public static final int CONTROLLER_RIGHT_Y_AXIS = 5;
   }
 
+  public static final class LEDConstants {
+    public static final int LED_PWM_PORT = 9;
+    public static final int LED_LENGTH = 300;
+  }
+
   public static final class MotorConstants{
     // Motor Ports
     public static final int REAR_LEFT_MOTOR_PORT = 1;

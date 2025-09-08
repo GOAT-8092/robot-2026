@@ -6,7 +6,9 @@ package frc.robot;
 
 import frc.robot.Constants.MotorConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.subsystems.AddressableLEDSubsytem;
 import frc.robot.subsystems.DriveSubsystem;
+import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,6 +24,10 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  AddressableLEDSubsytem m_led = new AddressableLEDSubsytem(
+    Constants.LEDConstants.LED_PWM_PORT,
+    Constants.LEDConstants.LED_LENGTH
+  );
 
   DriveSubsystem m_robotDrive = new DriveSubsystem(
     new PWMSparkMax(MotorConstants.FRONT_LEFT_MOTOR_PORT),
@@ -42,7 +48,16 @@ public class RobotContainer {
             m_robotDrive.drive(
               m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_LEFT_X_AXIS),
               m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_LEFT_Y_AXIS),
-              m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_RIGHT_X_AXIS))
+              m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_RIGHT_X_AXIS)),
+        m_robotDrive
+      )
+    );
+
+    m_led.setDefaultCommand(
+      new RunCommand(
+        () -> 
+          m_led.wave(63,0,63),
+        m_led
       )
     );
   }
@@ -57,6 +72,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,

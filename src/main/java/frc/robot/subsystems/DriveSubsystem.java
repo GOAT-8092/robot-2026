@@ -24,7 +24,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public DriveSubsystem(PWMSparkMax frontLeftMotor, PWMSparkMax rearLeftMotor, PWMSparkMax frontRightMotor, PWMSparkMax rearRightMotor) {
     navx = new AHRS(NavXComType.kMXP_SPI);
-    navx.zeroYaw();
+    navx.reset();
 
     this.rearLeftMotor = rearLeftMotor;
     this.rearRightMotor = rearRightMotor;
@@ -38,6 +38,10 @@ public class DriveSubsystem extends SubsystemBase {
   }
   public void drive(double xSpeed, double ySpeed, double rotation){
     m_drive.driveCartesian(xSpeed, ySpeed, rotation);
+  }
+
+  public void resetGyro(){
+    navx.reset();
   }
 
   @Override
