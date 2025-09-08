@@ -19,21 +19,21 @@ public class AddressableLEDSubsytem extends SubsystemBase {
     led.start();
   }
 
-  int startIndex = 0;
-  boolean waveState = true;
+  private int waveStartIndex = 0;
+  private boolean waveState = true;
   public void wave(int r, int g, int b){
-      if(startIndex >= buffer.getLength()){
+      if(waveStartIndex >= buffer.getLength()){
         waveState = !waveState;
-        startIndex = 0;
+        waveStartIndex = 0;
       }
 
       if(waveState){
-        buffer.setRGB(startIndex, r, g, b);
-        startIndex++;
+        buffer.setRGB(waveStartIndex, r, g, b);
+        waveStartIndex++;
         
       } else {
-        buffer.setRGB(startIndex, 0, 0, 0);
-        startIndex++;
+        buffer.setRGB(waveStartIndex, 0, 0, 0);
+        waveStartIndex++;
       }
       
       led.setData(buffer);

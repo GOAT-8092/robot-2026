@@ -5,26 +5,33 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TurretSubsystem extends SubsystemBase {
   /** Creates a new TurretSubsystem. */
-  PWMSparkMax turretMotor;
+  PWMVictorSPX turretMotor;
   Encoder turretEncoder;
 
-  public TurretSubsystem(PWMSparkMax turretMotor, Encoder turrretEncoder) {
+  public TurretSubsystem(PWMVictorSPX turretMotor, Encoder turrretEncoder) {
     this.turretMotor = turretMotor;
     this.turretEncoder = turrretEncoder;
   }
 
-  public void setAngle(double angle){
+  public void setAngle(double angle){ // !NOT TESTED 
     double currentAngle = turretEncoder.getDistance();
     double error = angle - currentAngle;
     double kP = 0.01;
     double output = kP * error;
     turretMotor.set(output);
+  }
 
+  public void setSpeed(double speed){
+    turretMotor.set(speed);
+  }
+
+  public boolean atSetpoint(double angle){
+    return Math.abs(angle - turretEncoder.getDistance()) < 0.5;
   }
 
   @Override

@@ -43,6 +43,18 @@ public class DriveSubsystem extends SubsystemBase {
   public void resetGyro(){
     navx.reset();
   }
+  public double getHeading(){
+    return navx.getYaw();
+  }
+  public Rotation2d getRotation2d(){
+    return Rotation2d.fromDegrees(getHeading());
+  }
+  public void stop(){
+    rearLeftMotor.stopMotor();
+    rearRightMotor.stopMotor();
+    frontLeftMotor.stopMotor();
+    frontRightMotor.stopMotor();
+  }
 
   @Override
   public void periodic() {

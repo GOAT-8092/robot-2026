@@ -31,7 +31,7 @@ public final class Constants {
     public static final int CONTROLLER_LEFT_X_AXIS = 0;
     public static final int CONTROLLER_LEFT_Y_AXIS = 1;
     public static final int CONTROLLER_LEFT_TRIGGER = 2;
-    public static final int CONTROLLER_RIGHT_TRIGGER = 3;
+    public static final int  CONTROLLER_RIGHT_TRIGGER = 3;
     public static final int CONTROLLER_RIGHT_X_AXIS = 4;
     public static final int CONTROLLER_RIGHT_Y_AXIS = 5;
   }
@@ -48,18 +48,8 @@ public final class Constants {
     public static final int REAR_RIGHT_MOTOR_PORT = 3;
     public static final int FRONT_LEFT_MOTOR_PORT = 4;
 
-    public static final int ELEVATOR_MOTOR_RIGHT_PORT = 6;
-    public static final int ELEVATOR_MOTOR_LEFT_PORT = 0;
-    public static final int CORAL_MOTOR_PORT = 7;
-    public static final int ALG_MOTOR_LEFT_PORT = 5;
-    public static final int ALG_MOTOR_RIGHT_PORT = 8;
+    public static final int TURRET_MOTOR_PORT = 6;
 
     // Motor Inversion
-    public static final boolean FRONT_LEFT_MOTOR_INVERTED = true;
-    public static final boolean FRONT_RIGHT_MOTOR_INVERTED = false;
-    public static final boolean REAR_LEFT_MOTOR_INVERTED = true;
-    public static final boolean REAR_RIGHT_MOTOR_INVERTED = true;
-    public static final boolean ELEVATOR_MOTOR_LEFT_INVERTED = true;
-    public static final boolean ELEVATOR_MOTOR_RIGHT_INVERTED = false;
   }
 }
