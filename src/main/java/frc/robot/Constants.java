@@ -41,12 +41,34 @@ public final class Constants {
     public static final int LED_LENGTH = 300;
   }
 
+  public static final class TurretConstants{
+    public static final double TURRET_MAX_ANGLE = 90.0;
+    public static final double TURRET_MIN_ANGLE = 0;
+    public static final double TURRET_MAX_SPEED = 0.5;
+    public static final double TURRET_MIN_SPEED = -0.5;
+    public static final double TURRET_SETPOINT_TOLERANCE = 1.0;
+    public static final double TURRET_SETPOINT_1 = 0.0;
+    public static final double TURRET_SETPOINT_2 = 45.0;
+    public static final int TURRET_SETPOINT_PULSE_1 = 0;
+    public static final int TURRET_SETPOINT_PULSE_2 = 4000; // NOT SETTED
+    public static final double TURRET_kP = 0.01;
+    public static final double TURRET_ENCODER_PULSE_PER_REVOLUTION = 400.0; // E38S6G5-400B-G24N
+    public static final double TURRET_GEAR_RATIO = 18.0/38.0;
+  }
+  
   public static final class MotorConstants{
     // Motor Ports
     public static final int REAR_LEFT_MOTOR_PORT = 1;
     public static final int FRONT_RIGHT_MOTOR_PORT = 2;
-    public static final int REAR_RIGHT_MOTOR_PORT = 3;
-    public static final int FRONT_LEFT_MOTOR_PORT = 4;
+    public static final int REAR_RIGHT_MOTOR_PORT = 4;
+    public static final int FRONT_LEFT_MOTOR_PORT = 3;
+
+    public static final boolean REAR_LEFT_MOTOR_INVERTED = true;
+    public static final boolean FRONT_RIGHT_MOTOR_INVERTED = false;
+    public static final boolean REAR_RIGHT_MOTOR_INVERTED = false;
+    public static final boolean FRONT_LEFT_MOTOR_INVERTED = true;
+
+    public static final double DRIVE_MAX_SPEED = 0.7;
 
     public static final int TURRET_MOTOR_PORT = 6;
 

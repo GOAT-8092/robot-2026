@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.MotorConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.TurretConstants;
 import frc.robot.commands.drive.DriveCommand;
 import frc.robot.commands.turret.TurretSetAngleCommand;
 import frc.robot.commands.turret.TurretSetSpeedCommand;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -35,10 +37,10 @@ public class RobotContainer {
   );
 
   DriveSubsystem m_robotDrive = new DriveSubsystem(
-    new PWMSparkMax(MotorConstants.FRONT_LEFT_MOTOR_PORT),
-    new PWMSparkMax(MotorConstants.REAR_LEFT_MOTOR_PORT),
-    new PWMSparkMax(MotorConstants.FRONT_RIGHT_MOTOR_PORT),
-    new PWMSparkMax(MotorConstants.REAR_RIGHT_MOTOR_PORT)
+    new PWMVictorSPX(MotorConstants.FRONT_LEFT_MOTOR_PORT),
+    new PWMVictorSPX(MotorConstants.REAR_LEFT_MOTOR_PORT),
+    new PWMVictorSPX(MotorConstants.FRONT_RIGHT_MOTOR_PORT),
+    new PWMVictorSPX(MotorConstants.REAR_RIGHT_MOTOR_PORT)
   );
 
   TurretSubsystem m_turret = new TurretSubsystem(
@@ -54,9 +56,9 @@ public class RobotContainer {
     configureBindings();
     m_robotDrive.setDefaultCommand(
       new DriveCommand(
-        () -> m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_LEFT_X_AXIS),
         () -> m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_LEFT_Y_AXIS),
-        () -> m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_RIGHT_X_AXIS),
+        () -> -m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_LEFT_X_AXIS),
+        () -> -m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_RIGHT_X_AXIS),
         m_robotDrive
       )
     );
@@ -68,13 +70,13 @@ public class RobotContainer {
       )
     );
 
-    m_led.setDefaultCommand(
-      new RunCommand(
-        () -> 
-          m_led.wave(63,0,63),
-        m_led
-      )
-    );
+    // m_led.setDefaultCommand(
+    //   new RunCommand(
+    //     () -> 
+    //       m_led.wave(63,0,63),
+    //     m_led
+    //   )
+    // );
   }
 
   /**
@@ -87,10 +89,15 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    new Trigger(m_XboxController::getBButton)
-      .onTrue(
-        new TurretSetAngleCommand(30,m_turret)
-      );
+    // new Trigger(m_XboxController::getAButton)
+    //   .onTrue(
+    //     new TurretSetAngleCommand(TurretConstants.TURRET_SETPOINT_PULSE_1,m_turret)
+    //   );
+
+    // new Trigger(m_XboxController::getBButton)
+    //   .onTrue(
+    //     new TurretSetAngleCommand(TurretConstants.TURRET_SETPOINT_PULSE_2,m_turret)
+    //   );
 
     
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`

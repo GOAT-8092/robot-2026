@@ -28,7 +28,7 @@ public class TurretSetSpeedCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turretSubsystem.setSpeed(speed.getAsDouble());
+    turretSubsystem.setSpeed(speed.getAsDouble() * 0.5);
   }
 
   // Called once the command ends or is interrupted.

@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.TurretConstants;
 
 public class TurretSubsystem extends SubsystemBase {
   /** Creates a new TurretSubsystem. */
@@ -16,12 +17,24 @@ public class TurretSubsystem extends SubsystemBase {
   public TurretSubsystem(PWMVictorSPX turretMotor, Encoder turrretEncoder) {
     this.turretMotor = turretMotor;
     this.turretEncoder = turrretEncoder;
+    
+  }
+
+  public double getAngle(){
+    return turretEncoder.get() / TurretConstants.TURRET_ENCODER_PULSE_PER_REVOLUTION * TurretConstants.TURRET_GEAR_RATIO;
   }
 
   public void setAngle(double angle){ // !NOT TESTED 
-    double currentAngle = turretEncoder.getDistance();
+    double currentAngle = getAngle();
     double error = angle - currentAngle;
     double kP = 0.01;
+    double output = kP * error;
+    turretMotor.set(output);
+  }
+
+  public void setAnglebyPulse(int pulse){
+    double error = pulse - turretEncoder.get();
+    double kP = 1 / TurretConstants.TURRET_ENCODER_PULSE_PER_REVOLUTION / 10;
     double output = kP * error;
     turretMotor.set(output);
   }
@@ -32,6 +45,9 @@ public class TurretSubsystem extends SubsystemBase {
 
   public boolean atSetpoint(double angle){
     return Math.abs(angle - turretEncoder.getDistance()) < 0.5;
+  }
+  public boolean atSetpointbyPulse(double pulse){
+    return Math.abs(pulse - turretEncoder.get()) < TurretConstants.TURRET_ENCODER_PULSE_PER_REVOLUTION / 4;
   }
 
   @Override
