@@ -9,7 +9,6 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.TurretConstants;
 import frc.robot.commands.drive.DriveCommand;
 import frc.robot.commands.turret.TurretSetAngleCommand;
-import frc.robot.commands.turret.TurretSetSpeedCommand;
 import frc.robot.subsystems.AddressableLEDSubsytem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
@@ -58,15 +57,8 @@ public class RobotContainer {
       new DriveCommand(
         () -> m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_LEFT_Y_AXIS),
         () -> -m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_LEFT_X_AXIS),
-        () -> -m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_RIGHT_X_AXIS),
+        () -> -m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_Z_AXIS),
         m_robotDrive
-      )
-    );
-
-    m_turret.setDefaultCommand(
-      new TurretSetSpeedCommand(
-        () -> m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_RIGHT_TRIGGER) - m_XboxController.getRawAxis(OperatorConstants.CONTROLLER_LEFT_TRIGGER),
-        m_turret
       )
     );
 

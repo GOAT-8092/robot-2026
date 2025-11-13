@@ -30,6 +30,8 @@ public final class Constants {
     
     public static final int CONTROLLER_LEFT_X_AXIS = 0;
     public static final int CONTROLLER_LEFT_Y_AXIS = 1;
+    // The current joystick's twist (Z) axis reports on index 2 and is used for robot rotation.
+    public static final int CONTROLLER_Z_AXIS = 2;
     public static final int CONTROLLER_LEFT_TRIGGER = 2;
     public static final int  CONTROLLER_RIGHT_TRIGGER = 3;
     public static final int CONTROLLER_RIGHT_X_AXIS = 4;
