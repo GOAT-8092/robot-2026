@@ -72,8 +72,42 @@ public final class Constants {
 
     public static final double DRIVE_MAX_SPEED = 0.7;
 
+    // Slew rate limiters for smooth acceleration (units per second)
+    // Higher values = more responsive but less smooth
+    // Lower values = smoother but less responsive
+    public static final double DRIVE_SLEW_RATE_X = 2.5; // Strafe left/right
+    public static final double DRIVE_SLEW_RATE_Y = 2.5; // Forward/backward
+    public static final double DRIVE_SLEW_RATE_ROTATION = 2.0; // Rotation
+
     public static final int TURRET_MOTOR_PORT = 6;
 
     // Motor Inversion
+  }
+
+  public static final class VisionConstants {
+    // AprilTag alignment target distance (measured as camera area %)
+    // Larger value = closer to tag, smaller value = farther from tag
+    // Typical values: 1.0 = far, 2.5 = medium, 5.0 = close
+    public static final double APRILTAG_TARGET_AREA = 1.3;
+    public static final double APRILTAG_AREA_TOLERANCE = 0.15;
+
+    // Speed limits for vision alignment
+    public static final double APRILTAG_MAX_DRIVE_SPEED = 0.4; // Reduced by 50%
+    public static final double APRILTAG_MIN_DRIVE_SPEED = 0.25; // Reduced by 50%
+    public static final double APRILTAG_MAX_ROTATION_SPEED = 0.25; // Reduced for smoother rotation
+    public static final double APRILTAG_MIN_ROTATION_SPEED = 0.05; // Lower minimum for fine control
+
+    // Rotation deadband - don't rotate if aligned within this threshold
+    public static final double APRILTAG_ROTATION_DEADBAND = 1.0; // degrees
+
+    // PID coefficients for rotation (aligning to face tag)
+    public static final double APRILTAG_ROTATION_KP = 0.03; // Reduced for smoother, less reactive rotation
+    public static final double APRILTAG_ROTATION_KI = 0.0;
+    public static final double APRILTAG_ROTATION_KD = 0.006; // Increased D for better damping
+
+    // PID coefficients for forward/backward movement (distance control)
+    public static final double APRILTAG_DRIVE_KP = 0.1; // Reduced by 50%
+    public static final double APRILTAG_DRIVE_KI = 0.0;
+    public static final double APRILTAG_DRIVE_KD = 0.005; // Reduced by 50%
   }
 }

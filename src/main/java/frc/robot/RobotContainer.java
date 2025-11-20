@@ -9,6 +9,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.TurretConstants;
 import frc.robot.commands.drive.DriveCommand;
 import frc.robot.commands.turret.TurretSetAngleCommand;
+import frc.robot.commands.vision.AlignToAprilTagCommand;
 import frc.robot.subsystems.AddressableLEDSubsytem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
@@ -64,7 +65,7 @@ public class RobotContainer {
 
     // m_led.setDefaultCommand(
     //   new RunCommand(
-    //     () -> 
+    //     () ->
     //       m_led.wave(63,0,63),
     //     m_led
     //   )
@@ -91,11 +92,8 @@ public class RobotContainer {
     //     new TurretSetAngleCommand(TurretConstants.TURRET_SETPOINT_PULSE_2,m_turret)
     //   );
 
-    
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
+    new Trigger(m_XboxController::getXButton)
+      .whileTrue(new AlignToAprilTagCommand(m_robotDrive));
   }
 
   /**

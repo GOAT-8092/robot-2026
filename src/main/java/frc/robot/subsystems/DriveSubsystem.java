@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
@@ -22,6 +23,12 @@ public class DriveSubsystem extends SubsystemBase {
   private PWMVictorSPX rearRightMotor;
   private PWMVictorSPX frontLeftMotor;
   private PWMVictorSPX frontRightMotor;
+
+  // Slew rate limiters to smooth joystick inputs and prevent stuttering
+  // Rate values are in units per second (higher = more responsive, lower = smoother)
+  private final SlewRateLimiter xLimiter = new SlewRateLimiter(MotorConstants.DRIVE_SLEW_RATE_X);
+  private final SlewRateLimiter yLimiter = new SlewRateLimiter(MotorConstants.DRIVE_SLEW_RATE_Y);
+  private final SlewRateLimiter rotateLimiter = new SlewRateLimiter(MotorConstants.DRIVE_SLEW_RATE_ROTATION);
 
   public DriveSubsystem(PWMVictorSPX frontLeftMotor, PWMVictorSPX rearLeftMotor, PWMVictorSPX frontRightMotor, PWMVictorSPX rearRightMotor) {
     navx = new AHRS(NavXComType.kMXP_SPI);
@@ -41,14 +48,63 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void drive(double xSpeed, double ySpeed, double rotation, Rotation2d gyroAngle){
+    // Apply deadzone first
+    xSpeed = applyDeadzone(xSpeed);
+    ySpeed = applyDeadzone(ySpeed);
+    rotation = applyDeadzone(rotation);
+
+    // Apply exponential curve for finer control at low speeds
+    xSpeed = applyExponentialCurve(xSpeed);
+    ySpeed = applyExponentialCurve(ySpeed);
+    rotation = applyExponentialCurve(rotation);
+
+    // Apply slew rate limiting for smooth acceleration
+    xSpeed = xLimiter.calculate(xSpeed * MotorConstants.DRIVE_MAX_SPEED);
+    ySpeed = yLimiter.calculate(ySpeed * MotorConstants.DRIVE_MAX_SPEED);
+    rotation = rotateLimiter.calculate(rotation * MotorConstants.DRIVE_MAX_SPEED);
+
     m_drive.driveCartesian(xSpeed, ySpeed, rotation, gyroAngle);
   }
+
   public void drive(double xSpeed, double ySpeed, double rotation){
-    m_drive.driveCartesian(applyDeadzone(xSpeed) * MotorConstants.DRIVE_MAX_SPEED, applyDeadzone(ySpeed) * MotorConstants.DRIVE_MAX_SPEED, applyDeadzone(rotation) * MotorConstants.DRIVE_MAX_SPEED);
+    // Apply deadzone first
+    xSpeed = applyDeadzone(xSpeed);
+    ySpeed = applyDeadzone(ySpeed);
+    rotation = applyDeadzone(rotation);
+
+    // Apply exponential curve for finer control at low speeds
+    xSpeed = applyExponentialCurve(xSpeed);
+    ySpeed = applyExponentialCurve(ySpeed);
+    rotation = applyExponentialCurve(rotation);
+
+    // Apply slew rate limiting for smooth acceleration
+    xSpeed = xLimiter.calculate(xSpeed * MotorConstants.DRIVE_MAX_SPEED);
+    ySpeed = yLimiter.calculate(ySpeed * MotorConstants.DRIVE_MAX_SPEED);
+    rotation = rotateLimiter.calculate(rotation * MotorConstants.DRIVE_MAX_SPEED);
+
+    m_drive.driveCartesian(xSpeed, ySpeed, rotation);
   }
 
-  public double applyDeadzone(double x){
-    return Math.abs(x) > 0.1 ? x : 0;
+  // Raw drive method for vision alignment - bypasses deadzone and speed scaling
+  public void driveRaw(double xSpeed, double ySpeed, double rotation){
+    m_drive.driveCartesian(xSpeed, ySpeed, rotation);
+  }
+
+  /**
+   * Apply deadzone to joystick input
+   * Returns 0 if input is below threshold, otherwise returns input
+   */
+  public double applyDeadzone(double input){
+    return Math.abs(input) > 0.1 ? input : 0;
+  }
+
+  /**
+   * Apply exponential curve to joystick input for finer control at low speeds
+   * Uses squared input while preserving sign
+   */
+  private double applyExponentialCurve(double input) {
+    // Square the input while preserving the sign for smoother, more precise control
+    return Math.copySign(input * input, input);
   }
 
   public void resetGyro(){
