@@ -29,6 +29,17 @@ FRC Team 8092 (G.O.A.T. - "Greatest of All Times") robot code for the 2026 REBUI
 - Turret subsystem with encoder feedback
 - Addressable LED subsystem (currently disabled)
 
+## 2026 Season Information
+
+**Game**: REBUILDTM (presented by Haas)
+**Kickoff**: January 10, 2026
+
+### Game Documentation
+- **2026GameManual-TU.pdf** - Official 2026 FRC Game Manual (Turkish)
+- **2026GameManual-TU.md** - Markdown conversion of the game manual (387 KB, 169 pages)
+
+The game manual contains complete rules, arena specifications, robot requirements, and tournament details for the 2026 REBUILT season.
+
 ## Build and Development Commands
 
 ### Building and Deploying
