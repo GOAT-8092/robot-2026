@@ -291,6 +291,7 @@ Bu proje WPILib BSD lisansı altında lisanslanmıştır.
 **Takım:** FRC Team 8092 (G.O.A.T. - "Greatest of All Times")
 **Sezon:** 2026 REBUILT
 **Framework:** WPILib Command-Based Java
-**Yeri:** Türkiye - İstanbul
+**Yeri:** Türkiye - Tekirdağ
 
 🤖 *Bu proje [Claude Code](https://claude.com/claude-code) ile geliştirilmiştir*
+
