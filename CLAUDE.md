@@ -4,14 +4,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Important: Check PARTS.md First
 
-**Before making any hardware-related changes** (motor ports, sensor connections, network configuration, controller mappings, etc.), **ALWAYS check PARTS.md** for the current hardware configuration. PARTS.md is the authoritative source for:
+**Before making any hardware-related changes** (motor ports, sensor connections, network configuration, controller mappings, etc.), **ALWAYS check PARTS.md** for the current hardware configuration.
+
+**Available Languages:**
+- **PARTS.md** - English version
+- **PARTS_TR.md** - Turkish version (Türkçe)
+
+**⚠️ CRITICAL: When updating PARTS.md files, you MUST update BOTH versions to keep them in sync.** If you modify hardware information in one language, apply the same changes to the other language version immediately.
+
+PARTS.md/PARTS_TR.md are the authoritative sources for:
 - Port assignments (PWM, MXP/SPI, USB, Network)
 - Motor configurations and inversions
 - Controller button mappings
 - Hardware specifications and limitations
 - Network addresses
 
-PARTS.md contains detailed tables and specifications that must be verified before modifying hardware-related code.
+These files contain detailed tables and specifications that must be verified before modifying hardware-related code.
 
 ## Project Overview
 
