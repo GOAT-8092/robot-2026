@@ -6,6 +6,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Before making any hardware-related changes** (motor ports, sensor connections, network configuration, controller mappings, etc.), **ALWAYS check PARTS.md** for the current hardware configuration.
 
+## Important: Check Game Manual for Rules Compliance
+
+**⚠️ CRITICAL: Before making ANY robot changes**, **ALWAYS check the 2026 Game Manual (`2026GameManual-TU.md` or `2026GameManual-TU.pdf`)** to verify that the changes are:
+- **Allowed** by the game rules
+- **Compliant** with robot specifications (R-rules)
+- **Safe** and don't violate any requirements
+
+The game manual contains:
+- **Robot Rules (R)** - All robot construction, size, weight, and component restrictions
+- **Game Rules (G)** - Gameplay and safety regulations
+- **Tournament Rules (T)** - Event-specific requirements
+- **Inspection Rules (I)** - Compliance and inspection criteria
+
+**Never assume a modification is allowed** - always verify against the official rules first.
+
 **Available Languages:**
 - **PARTS.md** - English version
 - **PARTS_TR.md** - Turkish version (Türkçe)
