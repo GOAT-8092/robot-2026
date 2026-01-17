@@ -79,12 +79,37 @@ The game manual contains complete rules, arena specifications, robot requirement
 ```
 
 ### Code Quality
+
+#### Quick Java Syntax Check (Run After Code Changes)
+
+Before deploying to the robot, run a quick compilation check to catch syntax errors:
+
+**Linux/macOS:**
+```bash
+./check-java.sh
+```
+
+**Windows:**
+```cmd
+check-java.bat
+```
+
+This script runs `compileJava` which is much faster than a full build and catches:
+- Syntax errors
+- Missing imports
+- Type mismatches
+- Deprecated API warnings
+
+#### Other Commands
 ```bash
 # Clean build artifacts
 ./gradlew clean
 
 # View project dependencies
 ./gradlew dependencies
+
+# Full build with tests
+./gradlew build
 ```
 
 ## Architecture
